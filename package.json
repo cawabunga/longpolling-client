@@ -1,0 +1,24 @@
+{
+  "name": "longpolling-client",
+  "version": "0.0.2",
+  "description": "Simple Long-Polling javascript client",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "keywords": [
+    "long-polling"
+  ],
+  "author": "Emil Ibatullin",
+  "repository": "https://github.com/cawabunga/longpolling-client",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine-ajax": "^3.1.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.3",
+    "karma-browserify": "^4.2.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "phantomjs": "^1.9.17"
+  }
+}
