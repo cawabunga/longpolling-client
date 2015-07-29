@@ -5,3 +5,15 @@ You can load LongPollingClient library directly into browser or you can require 
 For details see source and example directory.
 
  Also you can send me a pull requests for improvements.
+
+##Example
+For live example:
+
+- `git clone https://github.com/cawabunga/longpolling-client`
+- `cd longpolling-client`
+- `npm install`
+- `npm run example`
+
+Then open [http://localhost:3000/basic/](http://localhost:3000/basic/) in your browser, don't forget to open firebug console. 
+
+In the [example dir](https://github.com/cawabunga/longpolling-client/tree/master/example) there are also concept of angular wrapper. 

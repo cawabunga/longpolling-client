@@ -4,7 +4,8 @@
   "description": "Simple Long-Polling javascript client",
   "main": "index.js",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "example": "node example/server.js"
   },
   "keywords": [
     "long-polling"
