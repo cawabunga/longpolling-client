@@ -14,9 +14,9 @@ For live example:
 - `npm install`
 - `npm run example`
 
-Then open [http://localhost:3000/basic/](http://localhost:3000/basic/) in your browser, don't forget to open firebug console. 
+Then open [http://localhost:3000/basic/](http://localhost:3000/basic/) in your browser, don't forget to open firebug console.
 
-In the [example dir](https://github.com/cawabunga/longpolling-client/tree/master/example) there are also concept of angular wrapper.
+There are also concept of angular wrapper in the [example dir](https://github.com/cawabunga/longpolling-client/tree/master/example).
 
 ##Test
 For running test suites:
