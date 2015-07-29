@@ -1,6 +1,6 @@
 {
   "name": "longpolling-client",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Simple Long-Polling javascript client",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,11 @@
   },
   "keywords": [
     "long-polling"
+  ],
+  "files": [
+    "README.md",
+    "index.js",
+    "src/"
   ],
   "author": "Emil Ibatullin",
   "repository": "https://github.com/cawabunga/longpolling-client",
