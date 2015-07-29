@@ -1,91 +1,104 @@
-'use strict';
-
-/**
- * @class
- */
-var LongPollingClient = (function() {
+(function () {
+    'use strict';
 
     /**
-     * @constructor
-     * @param {Object} config
-     * @constructor
+     * @class
      */
-    function LongPollingClient(config) {
-        this.config = config;
-        this.failureTimeout = config.failureTimeout == null ? 30000 : config.failureTimeout;
-    }
-
-    LongPollingClient.prototype = {
+    var LongPollingClient = (function () {
 
         /**
-         * @public
+         * @constructor
+         * @param {Object} config
+         * @constructor
          */
-        start: function() {
-            this.aborted = false;
-            this.loop();
-        },
+        function LongPollingClient(config) {
+            this.config = config;
+            this.failureTimeout = config.failureTimeout == null ? 30000 : config.failureTimeout;
+        }
 
-        /**
-         * @public
-         */
-        abort: function() {
-            this.xhr.abort();
-            this.aborted = true;
-        },
+        LongPollingClient.prototype = {
 
-        /**
-         * @private
-         */
-        loop: function() {
-            if (this.aborted) {
-                return;
-            }
+            /**
+             * @public
+             */
+            start: function () {
+                this.aborted = false;
+                this.loop();
+            },
 
-            var xhr = this.doRequest();
-            this.handleXhr(xhr);
-        },
+            /**
+             * @public
+             */
+            abort: function () {
+                this.xhr.abort();
+                this.aborted = true;
+            },
 
-        /**
-         * @private
-         * @returns {XMLHttpRequest}
-         */
-        doRequest: function() {
-            var xhr = this.xhr = this.config.xhrGetter();
-            xhr.send();
-            return xhr;
-        },
-
-        /**
-         * @private
-         * @param {XMLHttpRequest} xhr
-         */
-        handleXhr: function(xhr) {
-            var that = this;
-
-            xhr.onreadystatechange = function() {
-                if (this.readyState !== this.DONE) return;
-
-                if (200 <= this.status && this.status <= 308) {
-                    that.config.success(this.responseText);
-                    that.loop();
-                } else {
-                    that.config.failure(this);
-                    setTimeout(function() {
-                        that.loop();
-                    }, that.failureTimeout);
+            /**
+             * @private
+             */
+            loop: function () {
+                if (this.aborted) {
+                    return;
                 }
 
-                that.afterRequest();
-            };
-        },
+                var xhr = this.doRequest();
+                this.handleXhr(xhr);
+            },
 
-        /**
-         * @private
-         */
-        afterRequest: function() {}
-    };
+            /**
+             * @private
+             * @returns {XMLHttpRequest}
+             */
+            doRequest: function () {
+                var xhr = this.xhr = this.config.xhrGetter();
+                xhr.send();
+                return xhr;
+            },
 
-    return LongPollingClient;
-}());
+            /**
+             * @private
+             * @param {XMLHttpRequest} xhr
+             */
+            handleXhr: function (xhr) {
+                var that = this;
 
-module.exports = LongPollingClient;
+                xhr.onreadystatechange = function () {
+                    if (this.readyState !== this.DONE) return;
+
+                    if (200 <= this.status && this.status <= 308) {
+                        that.config.success(this.responseText);
+                        that.loop();
+                    } else {
+                        that.config.failure(this);
+                        setTimeout(function () {
+                            that.loop();
+                        }, that.failureTimeout);
+                    }
+
+                    that.afterRequest();
+                };
+            },
+
+            /**
+             * @private
+             */
+            afterRequest: function () {
+            }
+        };
+
+        return LongPollingClient;
+    }());
+
+    var root = this;
+
+    if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports) {
+            exports = module.exports = LongPollingClient;
+        }
+        exports.LongPollingClient = LongPollingClient;
+    } else {
+        root.LongPollingClient = LongPollingClient;
+    }
+
+}.call(this));
