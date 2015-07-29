@@ -22,7 +22,8 @@ describe('LongPollingClient', function() {
         failureCb = jasmine.createSpy('failure callback');
         var xhrGetter = function() {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'dummy_url', false);
+            xhr.open('GET', 'dummy_url', true);
+            xhr.send();
             return xhr;
         };
         client = new LongPollingClient({

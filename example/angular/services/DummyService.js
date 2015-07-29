@@ -15,13 +15,16 @@ var DummyService = function (LongPollingClient, PubSub, API_CONFIG, SessionServi
         failure: angular.noop,
         xhrGetter: function () {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', API_CONFIG.POLLING_URL, false);
+            xhr.open('POST', API_CONFIG.POLLING_URL, true);
 
             // Setting Authorization headers (for JWT against cookie)
             var authHeaders = SessionService.getAuthHeaders();
             _.each(authHeaders, function (value, header) {
                 xhr.setRequestHeader(header, value);
             });
+
+            // Invoke xhr
+            xhr.send();
 
             return xhr;
         }

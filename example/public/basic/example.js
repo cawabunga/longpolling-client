@@ -29,6 +29,7 @@ var config = {
     xhrGetter: function () {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/api/subscribe', true);
+        xhr.send();
         return xhr;
     },
 

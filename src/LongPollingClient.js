@@ -51,9 +51,7 @@
              * @returns {XMLHttpRequest}
              */
             doRequest: function () {
-                var xhr = this.xhr = this.config.xhrGetter();
-                xhr.send();
-                return xhr;
+                return this.xhr = this.config.xhrGetter();
             },
 
             /**
