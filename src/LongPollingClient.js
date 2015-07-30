@@ -75,8 +75,14 @@
             getXhrResolver: function (xhr) {
                 var resolver;
 
+                // XMLHttpRequest object
                 if (xhr instanceof XMLHttpRequest) {
                     resolver = require('./XMLHttpRequestResolver');
+                }
+
+                // jqXHR object
+                else if (xhr.fail && xhr.done) {
+                    resolver = require('./JqueryAjaxResolver');
                 }
 
                 return new resolver(xhr);
