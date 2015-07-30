@@ -1,4 +1,10 @@
-Simple Comet (Long-Polling) Implementation on Javascript. It uses native [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest).
+Simple Comet (Long-Polling) Implementation on Javascript.
+
+Supported transports:
+
+- Native [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
+- jQuery AJAX Object [jqXHR](http://api.jquery.com/jQuery.ajax)
+
 
 You can load LongPollingClient library directly into browser or you can require it as CommonJS module.
 
