@@ -44,7 +44,7 @@ describe('LongPollingClient', function() {
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             status: 200,
-            "responseText": 'immediate response'
+            "responseText": '{}'
         });
 
         expect(successCb).toHaveBeenCalled();
@@ -53,10 +53,10 @@ describe('LongPollingClient', function() {
     it('should do another request after success response', function () {
         client.start();
 
-        jasmine.Ajax.requests.mostRecent().respondWith({status: 200});
+        jasmine.Ajax.requests.mostRecent().respondWith({status: 200, responseText: '{}'});
         expect(successCb.calls.count()).toEqual(1);
 
-        jasmine.Ajax.requests.mostRecent().respondWith({status: 200});
+        jasmine.Ajax.requests.mostRecent().respondWith({status: 200, responseText: '{}'});
         expect(successCb.calls.count()).toEqual(2);
     });
 
@@ -95,7 +95,7 @@ describe('LongPollingClient', function() {
         spyOn(client, 'afterRequest');
         client.start();
 
-        jasmine.Ajax.requests.mostRecent().respondWith({status: 200});
+        jasmine.Ajax.requests.mostRecent().respondWith({status: 200, responseText: '{}'});
         expect(client.afterRequest.calls.count()).toEqual(1);
 
         jasmine.Ajax.requests.mostRecent().respondWith({status: 500});

@@ -7,7 +7,6 @@
     var LongPollingClient = (function () {
 
         /**
-         * @constructor
          * @param {Object} config
          * @constructor
          */
@@ -48,7 +47,7 @@
 
             /**
              * @private
-             * @returns {XMLHttpRequest}
+             * @returns {(XMLHttpRequest|Object)}
              */
             doRequest: function () {
                 return this.xhr = this.config.xhrGetter();
@@ -56,47 +55,62 @@
 
             /**
              * @private
-             * @param {XMLHttpRequest} xhr
+             * @param {(XMLHttpRequest|Object)} xhr
              */
             handleXhr: function (xhr) {
+                var that = this,
+                    xhrResolver = this.getXhrResolver(xhr);
+
+                xhrResolver.onResolve(function (message) {
+                    that.success(message);
+                }, function (xhr) {
+                    that.failure(xhr);
+                });
+            },
+
+            /**
+             * @param  {(XMLHttpRequest|Object)} xhr
+             * @return {Object}
+             */
+            getXhrResolver: function (xhr) {
+                var resolver;
+
+                if (xhr instanceof XMLHttpRequest) {
+                    resolver = require('./XMLHttpRequestResolver');
+                }
+
+                return new resolver(xhr);
+            },
+
+            /**
+             * @private
+             */
+            success: function (message) {
+                this.config.success(message);
+                this.loop();
+
+                this.afterRequest();
+            },
+
+            /**
+             * @private
+             * @param  {(XMLHttpRequest|Object)} xhr
+             */
+            failure: function (xhr) {
                 var that = this;
 
-                xhr.onreadystatechange = function () {
-                    if (this.readyState !== this.DONE) return;
+                this.config.failure(xhr);
+                setTimeout(function () {
+                    that.loop();
+                }, this.failureTimeout);
 
-                    if (200 <= this.status && this.status <= 308) {
-                        that.config.success(that.processResponse(this));
-                        that.loop();
-                    } else {
-                        that.config.failure(this);
-                        setTimeout(function () {
-                            that.loop();
-                        }, that.failureTimeout);
-                    }
-
-                    that.afterRequest();
-                };
+                this.afterRequest();
             },
 
             /**
              * @private
              */
             afterRequest: function () {
-            },
-
-            /**
-             * @param  {XMLHttpRequest} xhr
-             * @returns {(Object|string)}
-             */
-            processResponse: function (xhr) {
-                var contentType = xhr.getResponseHeader('Content-type'),
-                    response = xhr.responseText;
-
-                if (contentType.indexOf('application/json') === 0) {
-                    response = JSON.parse(response);
-                }
-
-                return response;
             }
         };
 
