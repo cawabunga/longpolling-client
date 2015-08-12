@@ -31,3 +31,7 @@ For running test suites:
 - `cd longpolling-client`
 - `npm install`
 - `npm test`
+
+##todo
+- Replace resolvers with adapters
+- Write tests for angular wrapper
