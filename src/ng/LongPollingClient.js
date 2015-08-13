@@ -1,7 +1,7 @@
 'use strict';
 
 var Factory = function ($scope, $timeout) {
-    var LongPollingClient = require('../LongpollingClient'),
+    var LongPollingClient = require('../LongPollingClient'),
         assign = require('../helper').assign;
 
     var NgLongPollingClient = function () {
