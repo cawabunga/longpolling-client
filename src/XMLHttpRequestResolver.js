@@ -29,10 +29,16 @@
 
                     if (200 <= this.status && this.status <= 308) {
                         successCb(that.processResponse(this));
-                    } else {
+                    }
+                    // Do not fail an abort
+                    else if (this.status !== 0) {
                         failureCb(this);
                     }
-                }
+                };
+
+                this.xhr.onerror = function (error) {
+                    failureCb(this);
+                };
             },
 
             /**
