@@ -12,7 +12,6 @@
          */
         function LongPollingClient(config) {
             this.config = config;
-            this.failureTimeout = config.failureTimeout == null ? 30000 : config.failureTimeout;
         }
 
         LongPollingClient.prototype = {
@@ -103,13 +102,7 @@
              * @param  {(XMLHttpRequest|Object)} xhr
              */
             failure: function (xhr) {
-                var that = this;
-
                 this.config.failure(xhr);
-                setTimeout(function () {
-                    that.loop();
-                }, this.failureTimeout);
-
                 this.afterRequest();
             },
 
